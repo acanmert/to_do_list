@@ -1,0 +1,56 @@
+﻿@model List<to_do_list.Entities.TasksList>
+
+<h1>Todo List</h1>
+
+<form method="post" asp-action="Main">
+    <input type="text" name="taskText" placeholder="Görev ekleyin..." required />
+    <button type="submit">Ekle</button>
+</form>
+
+
+<div>
+    <form id="form1">
+        <!-- Diğer form elemanları -->
+        <button type="button">Cıkıs Yap</button>
+    </form>
+</div>
+<div>
+    <ul>
+        @foreach (var task in Model)
+        {
+            <li>
+                @task.Tasks
+                <form method="get" asp-action="updateTask" asp-route-id="@task.Id">
+                    <button type="submit" onclick="redirectToUpdated()">Düzenle</button>
+                </form>
+                <form method="post" asp-action="deleteTask" asp-route-id="@task.Id">
+                    <button type="submit">Sil</button>
+                </form>
+            </li>
+        }
+    </ul>
+</div>
+
+<!-- Düzenleme Formu -->
+<div id="editForm" style="display:none;">
+    <h2>Edit Task</h2>
+    <form method="post" asp-action="updateTask" id="updateForm">
+        <input type="hidden" id="editTaskId" name="taskId" />
+        <input type="text" id="editTaskText" name="taskText" required />
+        <button type="submit">Güncelle</button>
+    </form>
+</div>
+
+
+<!-- JavaScript Kodları -->
+<script>
+    function redirectToForm2() {
+        // Form 1'den Form 2'ye yönlendirme işlemi
+        window.location.href = '/User/LogUser'; // /Form2, yönlendirilecek sayfanın URL'sidir
+    }
+    function redirectToUpdated() {
+        // Form 1'den Form 2'ye yönlendirme işlemi
+        window.location.href = '/List/updated'; // /Form2, yönlendirilecek sayfanın URL'sidir
+    }
+
+</script>
