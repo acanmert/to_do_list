@@ -59,11 +59,10 @@ namespace to_do_list.Controllers
             return _taskService.getTasks(userId);
         }
         [HttpPost]
-        public IActionResult deleteTask(int Id)
+        public void deleteTask(int Id)
         {
             var deletedTask= _taskService.getTaskbyId(Id);
             _taskService.delete(deletedTask);
-            return View();
         }
         [HttpPost]
         public IActionResult updateTask(int Id)
@@ -78,7 +77,7 @@ namespace to_do_list.Controllers
 
                 return RedirectToAction("updated", "List", updatedTask);
             }
-            throw new Exception("Hata");  
+            return View();  
             
         }
     }
